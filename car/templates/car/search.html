@@ -1,0 +1,94 @@
+{% load static %}
+{% load pagination_tags %}
+
+<link rel="stylesheet" href="{% static 'car/bootstrap-5.1.3-dist/css/my_style.css' %}">
+<link rel="stylesheet" href="{% static 'car/bootstrap-5.1.3-dist/css/nouislider.min.css' %}">
+
+<form style="margin-top: 20px" action="{% url 'car:find_car' %}" method="get">
+    <div style="width: 80%; color: #0d6efd; margin-left: 10%" class="filters-price__slider" id="range-slider"></div>
+    <div class="filters-price__inputs">
+        <label style="background-color: #fff" class="filters-price__label">
+            <span class="filters-price__text">from</span>
+            <input style="width: 50px" type="number" name="min_price" min="{{ min_price }}" max="{{ max_price }}"
+                   placeholder="10" value=""
+                   class="filters-price__input" id="input-0">
+            <span class="filters-price__text">$</span>
+        </label>
+        <label style="background-color: #fff" class="filters-price__label">
+            <span class="filters-price__text">to</span>
+            <input style="width: 50px" type="number" name="max_price" min="{{ min_price }}" max="{{ max_price }}"
+                   placeholder="100" value=""
+                   class="filters-price__input" id="input-1">
+            <span class="filters-price__text">$</span>
+        </label>
+
+    </div>
+    <a style="margin-left: 10px"
+       class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+
+        <span class="fs-5">Years</span>
+    </a>
+    <ul>
+        {% for year in cars_year %}
+            <li>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="year" value="{{ year }}"
+                    >
+                    <label class="form-check-label">
+                        {{ year }}
+                    </label>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+
+
+    <div style="margin-top: 10px; display: flex; justify-content: center">
+        <button type="submit" class="btn btn-primary">
+            Submit
+        </button>
+    </div>
+</form>
+
+
+<script src="{% static 'car/bootstrap-5.1.3-dist/js/nouislider.min.js' %}"></script>
+<script type="text/javascript">
+    const rangeSlider = document.getElementById('range-slider');
+
+    if (rangeSlider) {
+        noUiSlider.create(rangeSlider, {
+            start: [{{ min_price}}, {{ max_price }}],
+            connect: true,
+            step: 1,
+            range: {
+                'min': [{{ min_price }}],
+                'max': [{{ max_price }}]
+            }
+        });
+
+        const input0 = document.getElementById('input-0');
+        const input1 = document.getElementById('input-1');
+        const inputs = [input0, input1];
+
+        rangeSlider.noUiSlider.on('update', function (values, handle) {
+            inputs[handle].value = Math.round(values[handle]);
+        });
+
+        const setRangeSlider = (i, value) => {
+            let arr = [null, null];
+            arr[i] = value;
+
+            console.log(arr);
+
+            rangeSlider.noUiSlider.set(arr);
+        };
+
+        inputs.forEach((el, index) => {
+            el.addEventListener('change', (e) => {
+                console.log(index);
+                setRangeSlider(index, e.currentTarget.value);
+            });
+        });
+    }
+
+</script>

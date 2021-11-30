@@ -1,0 +1,17 @@
+{% extends 'car/base.html' %}
+
+{% block content %}
+    <div class="bd-example" style="margin-left: 15%">
+        <h1>Add order</h1>
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div>{{ form.title.errors }}</div>
+            {% for f in form %}
+                <p><label for="{{ f.id_for_label }}">{{ f.label }}</label>{{ f }}</p>
+                <div>{{ f.errors }}</div>
+            {% endfor %}
+            <input class="btn btn-sm btn-outline-secondary" type="submit"
+                   style="width: 15%; background-color: #0d6efd; color: #fff; margin-bottom: 10px" value="Add"/>
+        </form>
+    </div>
+{% endblock %}

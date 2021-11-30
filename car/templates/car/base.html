@@ -1,0 +1,32 @@
+{% load pagination_tags %}
+{% load static %}
+{% include 'header.html' %}
+
+<body>
+<main style="background-color: #212529">
+    {% block main_menu %}
+        {% include 'main_menu.html' %}
+    {% endblock main_menu %}
+    {% block sidebar %}
+        {% include 'sidebar.html' %}
+    {% endblock %}
+</main>
+<div class="content-text" style="float: left; width: 73%">
+    {% block content %}
+    {% endblock %}
+    {% block pagination %}
+        {% include 'pagination.html' %}
+    {% endblock %}
+</div>
+<div class="container">
+    {% block footer %}
+
+        {% include 'footer.html' %}
+    {% endblock %}
+</div>
+
+<script src=" {% static 'car/bootstrap-5.1.3-dist/js/bootstrap.min.js' %} "></script>
+
+
+</body>
+</html>

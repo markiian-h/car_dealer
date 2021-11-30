@@ -1,0 +1,40 @@
+{% load static %}
+<div class="container">
+    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+
+
+        <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+            {% for m in menu %}
+                <div style="position: relative; align-items: center">
+                    <li><a href="/{{ m.url_name }}"
+                           style="color: #fff"
+                           class="nav-link px-2 link-secondary"
+                           aria-current="page">{{ m.title }}</a>
+                    </li>
+                </div>
+            {% endfor %}
+
+        </ul>
+        {% if request.user.is_authenticated %}
+            <div class="col-md-3 text-end">
+                <a style="color: #fff">{{ user.user_name }}</a>
+                <button type="button" class="btn btn-primary" style="margin-left: 10px"><a
+                        href="{% url 'dealers:logout' %}"
+                        style="color: #fff; text-decoration: none">Log-out</a>
+                </button>
+            </div>
+
+        {% else %}
+            <div class="col-md-3 text-end">
+                <button type="button" class="btn btn-outline-primary me-2"
+                        style="background-color: #fff; border-color: #fff"><a
+                        style="text-decoration: none; background-color: #fff"
+                        href="{% url 'dealers:login' %}">Log-in</a></button>
+                <button type="button" class="btn btn-primary"><a href="{% url 'dealers:register' %}"
+                                                                 style="color: #fff; text-decoration: none">Sign-up</a>
+                </button>
+            </div>
+        {% endif %}
+
+    </header>
+</div>

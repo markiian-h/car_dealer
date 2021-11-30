@@ -1,0 +1,40 @@
+<div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark"
+     style="margin-left: 1%; width: 26%; height: auto; float: left; ">
+    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+
+        <span class="fs-4">Home page</span>
+    </a>
+    <hr>
+    <ul class="nav nav-pills flex-column mb-auto">
+        {% for s in sidebar %}
+            {% if path == s.url_name %}
+                <li class="nav-item active" style="margin-bottom: 10px">
+                    <a class="nav-link active" aria-current="page">
+                        {{ s.title }}
+                    </a>
+                </li>
+            {% else %}
+                <li class="nav-item active" style="margin-bottom: 10px; ">
+                    <a href="/{{ s.url_name }}" class="nav-link " style="background-color: #fff"
+                       aria-current="page">
+                        {{ s.title }}
+                    </a>
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+
+    {% if path in sidebar_list_url %}
+        <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+
+            <span class="fs-4">Find your car</span>
+        </a>
+        <a style="margin-left: 10px" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+
+            <span class="fs-5">Price</span>
+        </a>
+        {% include 'car/search.html' %}
+    {% endif %}
+
+</div>
+

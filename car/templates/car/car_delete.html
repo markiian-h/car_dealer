@@ -1,0 +1,17 @@
+{% extends 'car/base.html' %}
+
+{% block content %}
+    <div style="margin-left: 15%">
+        <h1>Delete car</h1>
+        <form action="" method="post">
+            {% csrf_token %}
+
+            <p>Are you sure you want to delete "{{ car.model.brand }} - {{ car.model }}"?</p>
+
+            <div>
+                <input class="btn btn-sm btn-outline-secondary"
+                       style="width: 15%; background-color: #0d6efd; color: #fff" type="submit" value="Confirm"/>
+            </div>
+        </form>
+    </div>
+{% endblock %}

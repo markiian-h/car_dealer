@@ -1,0 +1,60 @@
+{% extends 'car/base.html' %}
+
+{% block content %}
+    <div style="width: 100%; background-color: #0086b3; ">
+
+        <div style="width: 30%; float: left; padding: 10px; "><img src="{{ car.picture.url.url }}" class="img-thumbnail"
+                                                                   alt="">
+        </div>
+        <div class="card-body" style="width: 55%; float: left;padding: 10px;">
+            <p class="card-text">Model: {{ car.model }}</p>
+            <p class="card-text">Color: {{ car.color }}</p>
+            <p class="card-text">Price: {{ car.price }} $</p>
+            <p class="card-text">Year: {{ car.year }} </p>
+            <p class="card-text">Engine type: {{ car.get_engine_type_display }}</p>
+            <p class="card-text">Capacity: {{ car.capacity }}</p>
+            <p class="card-text">Gear case: {{ car.gear_case }}</p>
+            <p class="card-text">Doors: {{ car.doors }}</p>
+            <p class="card-text">Dealer: {{ car.dealer }}</p>
+            <p class="card-text">Dealer phone: {{ car.dealer.phone }}</p>
+            <div class="d-flex justify-content-between align-items-center">
+                {% if car.dealer != request.user and request.user.is_authenticated %}
+                    {#                    <form action="{% url 'order:orders' car.pk %}" method="post">#}
+                    <button type="button"
+                            class="btn btn-sm btn-outline-secondary"
+                            style="width: 25%; float: right; background-color: #0d6efd;">
+                        <a href="{% url 'order:create_orders' car.pk %}" style="color: #fff; text-decoration: none">Add
+                            to
+                            order</a>
+                    </button>
+                    {#                    </form>#}
+                {% endif %}
+                {% if car.dealer == request.user %}
+                    <div class="btn-group" style="float: right; width: 150px; ">
+                        <button href="{% url 'car:car_edit' car.pk %}" type="button"
+                                class="btn btn-sm btn-outline-secondary"
+                                style="width: 50%; float: right; background-color: #0d6efd;">
+                            <a href="{% url 'car:car_edit' car.pk %}"
+                               style="color: #fff; text-decoration: none">Edit</a>
+                        </button>
+                        <button href="{% url 'car:car_edit' car.pk %}" type="button"
+                                class="btn btn-sm btn-outline-secondary"
+                                style="width: 50%; float: right; background-color: red;">
+                            <a href="{% url 'car:car_delete' car.pk %}"
+                               style="color: #fff; text-decoration: none">Delete</a>
+                        </button>
+                    </div>
+                {% endif %}
+                <small class="text-muted">Created: {{ car.created_at|date:"SHORT_DATE_FORMAT" }}</small>
+                <small class="text-muted">Last update: {{ car.updated_at|date:"SHORT_DATE_FORMAT" }}</small>
+                {% if car.dealer == request.user %}
+                    <small class="text-muted">Views: {{ car.views }}</small>
+                {% endif %}
+            </div>
+            {% if err %}
+
+                err
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

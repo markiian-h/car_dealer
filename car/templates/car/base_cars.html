@@ -1,0 +1,29 @@
+<div class="col">
+    <div class="card shadow-sm">
+
+        <a href="{{ car.get_absolute_url }}"><img src="{{ car.picture.url.url }}" class="img-thumbnail"
+                                                  style="height: 200px; width: 300px"
+                                                  alt=""></a>
+        <div class="card-body">
+            <p class="card-text">Dealer: {{ car.dealer }}</p>
+            <p class="card-text">Model: {{ car.model }}</p>
+            <p class="card-text">Price: {{ car.price }} $</p>
+            <p class="card-text">Year: {{ car.year }}</p>
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-sm btn-outline-secondary"
+                            style="background-color: #0d6efd;"><a
+                            href="{{ car.get_absolute_url }}"
+                            style="text-decoration: none; background-color: #0d6efd; color: #fff">View</a>
+                    </button>
+                    {% if request.user.is_authenticated and request.user.is_dealer and car.dealer == request.user %}
+                        <button type="button" class="btn btn-sm btn-outline-secondary"><a
+                                href="{% url 'car:car_edit' car.pk %}" style="text-decoration: none;">Edit</a>
+                        </button>
+                    {% endif %}
+                </div>
+                <small class="text-muted">{{ car.created_at|date:"SHORT_DATE_FORMAT" }}</small>
+            </div>
+        </div>
+    </div>
+</div>
