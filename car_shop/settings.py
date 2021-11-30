@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
 from pathlib import Path
+
+import django_heroku
 import environ
 import dj_database_url
 
@@ -161,3 +163,5 @@ AUTHENTICATION_BACKENDS = (
 
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
+
+django_heroku.settings(locals())
