@@ -168,7 +168,7 @@ class ContactView(DataMixin, TemplateView):
 
 
 class HomePageView(DataMixin, TemplateView):
-    template_name = 'car/home.html'
+    template_name = 'index.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
