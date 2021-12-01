@@ -15,3 +15,5 @@ Data for already registered dealer with added item:
 - login: dealer1
 
 - password: dealer123
+
+[Here you can browse the site](https://lit-beyond-50746.herokuapp.com/)
