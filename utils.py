@@ -48,7 +48,7 @@ class DataMixin:
         if not self.request.user.is_authenticated:
             user_menu.pop(1)
             user_sidebar.pop(1)
-            user_sidebar.pop(2)
+            user_sidebar.pop(1)
         else:
             if not self.request.user.is_dealer:
                 user_sidebar.pop(1)
